@@ -3,35 +3,42 @@
 using namespace std;
 
 //Recursion with cache for already computed values
-int last_dig_sum_part_fib(int64_t m, int64_t n)
+
+int fib_last_sum_mod(int64_t n)
 {
-	int64_t fib [n+1];
-	fib[0] = 0;
-	fib[1] = 1;
-	int sum = 0;
+	int fib, fib_n1 = 1, fib_n2 = 0, period = 60, temp = (n + 2) % period, mod = 10;
 	
-	if(m < 2)
-		sum = 1;
+	if(temp == 1)
+		fib = 1;
+	else if (n < 0)
+		fib = 0;
+	else
+		fib = 10;
 	
-	if(n==1 || n==0)
-		return int(fib[n]);
-	
-	for(int64_t i=2; i<=n; i++)
+	for(int64_t i=2; i <= temp; i++)
 	{
-		fib[i] = (fib[i-1] + fib[i-2])%10;
-		if(i>=m)
-			sum = (sum + fib[i]) % 10;
+		fib = (fib_n1 + fib_n2) % mod;
+		fib_n2 = fib_n1;
+		fib_n1 = fib;
 	}
 	
-	return sum;
+	return fib - 1;
+}
+
+int fib_part_sum_mod(int64_t num1, int64_t num2)
+{
+	if(fib_last_sum_mod(num1-1) <= fib_last_sum_mod(num2))
+		return fib_last_sum_mod(num2) - fib_last_sum_mod(num1-1);
+	else 
+		return 10 + (fib_last_sum_mod(num2) - fib_last_sum_mod(num1-1));
 }
 
 int main()
 {
-	int64_t num1, num2;	
+	int64_t num1, num2;
 	
 	cin >> num1 >> num2;
-	cout << last_dig_sum_part_fib(num1, num2) << endl;
+	cout << fib_part_sum_mod(num1, num2) << endl;
 	
 	return 0;
 }

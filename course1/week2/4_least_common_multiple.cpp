@@ -12,9 +12,9 @@ int32_t gcd(int32_t num1, int32_t num2)
 	return gcd(num2, num1 % num2);
 }
 
-int32_t lcm(int32_t num1, int32_t num2)
+int64_t lcm(int32_t num1, int32_t num2)
 {
-	return int32_t((num2/gcd(num1, num2))*num1);
+	return int64_t(num2)*num1/gcd(num1, num2);
 }
 	
 int main()

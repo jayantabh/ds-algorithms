@@ -57,17 +57,13 @@ int fib_last_sum_mod(int64_t n, int mod)
 	return fib;
 }
 
-int fib_last_sum_sqrmod(int64_t n)
-{
-	return (fib_last_sum_mod(n, 10) * (fib_last_sum_mod(n, 10) + fib_last_sum_mod(n-1, 10))) % 10;
-}
-
 int main()
 {
-	int64_t num1;
+	int64_t num;
+	int mod;
 	
-	cin >> num1;
-	cout << fib_last_sum_sqrmod(num1) << endl;
+	cin >> num >> mod;
+	cout << fib_last_sum_mod(num, mod) << endl;
 	
 	return 0;
 }
